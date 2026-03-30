@@ -1,4 +1,4 @@
-# Index / Shihan_He
+# Shihan_He
 
 > "I tend to deconstruct complexity into clear product decisions."
 
