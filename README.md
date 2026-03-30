@@ -1,10 +1,8 @@
-# daisssy.github.io
-Index / Shihan_He — A mathematical approach to product thinking. A personal archive of AI experiments, product teardowns, and logical deconstructions. Built with a minimalist, bilingual (ZH/EN) interface.
 # Index / Shihan_He
 
 > "I tend to deconstruct complexity into clear product decisions."
 
-This is my personal digital archive—a space where my background in **Mathematics (Leeds)** meets my research in **AI Interaction (HKU)**. It is designed not just as a portfolio, but as a "Logic Lab" to document my thinking process.
+This is my personal digital archive—a space where my background in **Mathematics (Leeds)** meets my research in **IDT (HKU)**. It is designed not just as a portfolio, but as a "Logic Lab" to document my thinking process.
 
 ## 🧬 Core Modules
 - **Lab Notes:** Experiments with Manim (Math visualization), Gemini-driven research workflows, and rapid prototyping via Cursor.
