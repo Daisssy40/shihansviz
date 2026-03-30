@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>// Shihan_He</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #faf8f5;
+    --surface: #ffffff;
+    --surface2: #f3f0eb;
+    --border: #e8e2d9;
+    --text: #2c2825;
+    --muted: #8a8078;
+    --soft: #b5afa6;
+    --accent: #c17d4a;
+    --accent-light: #f5ede3;
+    --font-serif: 'Lora', Georgia, serif;
+    --font-sans: 'Inter', sans-serif;
+    --max: 860px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-sans); font-size: 16px; line-height: 1.75; overflow-x: hidden; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 2.5rem;
+    background: rgba(250,248,245,0.94); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Courier New', monospace; font-size: 0.95rem; font-weight: 400; color: var(--text); display: flex; align-items: baseline; }
+  .nav-logo .comment { color: #6a9955; }
+  .nav-logo .cursor { color: var(--accent); animation: blink 1.1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .nav-right { display: flex; align-items: center; gap: 2rem; }
+  .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.18s; }
+  .nav-links a:hover { color: var(--text); }
+  .lang-btn { font-size: 0.78rem; color: var(--muted); cursor: pointer; border: 1px solid var(--border); background: none; padding: 0.28rem 0.65rem; border-radius: 0.25rem; transition: color 0.18s, border-color 0.18s; font-family: var(--font-sans); }
+  .lang-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── LAYOUT ── */
+  .divider { height: 1px; background: var(--border); max-width: var(--max); margin: 0 auto; }
+  section { padding: 4.5rem 2rem; max-width: var(--max); margin: 0 auto; scroll-margin-top: 64px; }
+
+  /* ── HERO ── */
+  .hero { padding: 8rem 2rem 4rem; max-width: var(--max); margin: 0 auto; }
+  .hero-kicker { font-size: 0.72rem; letter-spacing: 0.13em; color: var(--muted); text-transform: uppercase; margin-bottom: 1.75rem; }
+  .hero-title { font-family: var(--font-serif); font-size: clamp(1.7rem, 4vw, 2.6rem); font-weight: 400; line-height: 1.3; color: var(--text); margin-bottom: 1.5rem; }
+  .hero-title em { font-style: italic; color: var(--accent); }
+  .hero-bio { font-size: 0.975rem; color: var(--muted); font-weight: 300; max-width: 500px; line-height: 1.9; margin-bottom: 2rem; }
+  .hero-links { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
+  .hero-link { font-size: 0.875rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(193,125,74,0.3); padding-bottom: 0.05rem; transition: border-color 0.18s; }
+  .hero-link:hover { border-color: var(--accent); }
+  .hero-link-plain { font-size: 0.875rem; color: var(--muted); text-decoration: none; transition: color 0.18s; }
+  .hero-link-plain:hover { color: var(--text); }
+
+  /* ── FEATURED ── */
+  .featured { max-width: var(--max); margin: 0 auto; padding: 0 2rem 4rem; }
+  .featured-inner {
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: 0;
+    border: 1px solid var(--border); border-radius: 0.5rem; overflow: hidden;
+    background: var(--surface);
+  }
+  .featured-cover {
+    height: 280px; position: relative; overflow: hidden;
+    background: #2c2825;
+    display: flex; align-items: flex-end;
+  }
+  .featured-cover-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #1a1510 0%, #3d2b1a 50%, #2c2825 100%);
+    opacity: 0.92;
+  }
+  .featured-cover-label {
+    position: relative; z-index: 1;
+    padding: 1.5rem 1.75rem;
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+  }
+  .featured-body {
+    padding: 2rem 2rem 2rem 2rem;
+    display: flex; flex-direction: column; justify-content: center;
+    border-left: 1px solid var(--border);
+  }
+  .featured-eyebrow {
+    font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.85rem; font-weight: 500;
+  }
+  .featured-title {
+    font-family: var(--font-serif); font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-weight: 500; line-height: 1.35; color: var(--text); margin-bottom: 0.75rem;
+  }
+  .featured-desc { font-size: 0.85rem; color: var(--muted); font-weight: 300; line-height: 1.7; margin-bottom: 1.25rem; }
+  .featured-meta { font-size: 0.72rem; color: var(--soft); letter-spacing: 0.04em; }
+  .featured-link {
+    margin-top: 1.5rem; display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.825rem; color: var(--accent); text-decoration: none;
+    border-bottom: 1px solid rgba(193,125,74,0.3); padding-bottom: 0.05rem; width: fit-content;
+    transition: border-color 0.18s;
+  }
+  .featured-link:hover { border-color: var(--accent); }
+
+  /* ── SECTION HEADER ── */
+  .sec-header { padding-bottom: 1.25rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+  .sec-label { font-size: 0.7rem; letter-spacing: 0.13em; color: var(--muted); text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 500; }
+  .sec-title { font-family: var(--font-serif); font-size: clamp(1.35rem, 3.5vw, 1.8rem); font-weight: 400; line-height: 1.25; color: var(--text); }
+  .sec-title em { font-style: italic; color: var(--accent); }
+
+  /* ── ABOUT ── */
+  .about-prose { font-size: 0.975rem; color: var(--muted); line-height: 1.95; font-weight: 300; }
+  .about-prose p + p { margin-top: 1.6rem; }
+  .about-prose strong { color: var(--text); font-weight: 500; }
+
+  /* ── TEARDOWNS — card grid ── */
+  .teardown-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 0.5rem; overflow: hidden; }
+  .td-card { background: var(--surface); text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: background 0.15s; }
+  .td-card:hover { background: var(--accent-light); }
+  .td-card-thumb {
+    height: 120px; display: flex; align-items: flex-end; padding: 1rem 1.25rem;
+    position: relative; overflow: hidden;
+  }
+  .td-card-thumb.t1 { background: #f0ece3; }
+  .td-card-thumb.t2 { background: #e8eff0; }
+  .td-card-thumb.t3 { background: #ede8f0; }
+  .td-card-thumb.t4 { background: #e8f0e8; }
+  .td-thumb-type {
+    font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 500; color: var(--muted);
+    background: rgba(255,255,255,0.75); padding: 0.2rem 0.55rem;
+    border-radius: 2rem; border: 1px solid var(--border);
+  }
+  .td-card-body { padding: 1.25rem 1.25rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
+  .td-card-title { font-family: var(--font-serif); font-size: 0.975rem; font-weight: 500; color: var(--text); line-height: 1.4; margin-bottom: 0.5rem; transition: color 0.15s; }
+  .td-card:hover .td-card-title { color: var(--accent); }
+  .td-card-desc { font-size: 0.8rem; color: var(--muted); font-weight: 300; line-height: 1.65; flex: 1; }
+  .td-card-foot { margin-top: 1rem; font-size: 0.68rem; color: var(--soft); }
+
+  /* ── LAB NOTES ── */
+  .lab-header { padding-bottom: 1.25rem; margin-bottom: 0; border-bottom: 1px solid var(--border); }
+  .lab-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.13em; color: var(--muted); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .lab-title-text { font-family: var(--font-serif); font-size: clamp(1.35rem, 3.5vw, 1.8rem); font-weight: 400; line-height: 1.25; color: var(--text); margin-bottom: 0.6rem; }
+  .lab-title-text em { font-style: italic; color: var(--accent); }
+  .lab-intro { font-size: 0.875rem; color: var(--muted); font-weight: 300; line-height: 1.8; }
+  .lab-list { margin: 0; padding: 0; }
+  .lab-item { display: grid; grid-template-columns: auto 1fr; gap: 0.2rem 1.75rem; padding: 1.75rem 0; border-bottom: 1px solid var(--border); align-items: start; }
+  .lab-item:last-child { border-bottom: 1px solid var(--border); }
+  .lab-item-num { font-size: 0.75rem; font-weight: 500; color: var(--soft); letter-spacing: 0.06em; line-height: 1.6; font-variant-numeric: tabular-nums; }
+  .lab-item-body { min-width: 0; }
+  .lab-item-title { font-size: 0.975rem; font-weight: 500; color: var(--text); margin-bottom: 0.55rem; line-height: 1.35; }
+  .lab-item-desc { font-size: 0.9rem; color: var(--muted); font-weight: 300; line-height: 1.85; margin-bottom: 0.9rem; }
+  .lab-item-desc strong { color: var(--text); font-weight: 500; }
+  .lab-item-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .lab-tag { font-family: 'Courier New', monospace; font-size: 0.67rem; padding: 0.22rem 0.5rem; border: 1px solid var(--border); border-radius: 0.2rem; background: rgba(255,255,255,0.6); color: var(--text); }
+
+  /* ── ACHIEVE — two-col with sidebar ── */
+  .achieve-layout { display: grid; grid-template-columns: 1fr 260px; gap: 3.5rem; align-items: start; }
+  .writing-list { border: none; padding: 0; }
+  .writing-item { display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem; padding: 1.2rem 0; border-bottom: 1px solid var(--border); text-decoration: none; color: inherit; transition: color 0.15s; }
+  .writing-item:first-child { border-top: 1px solid var(--border); }
+  .writing-item:last-child { border-bottom: 1px solid var(--border); }
+  .writing-item:hover .writing-title { color: var(--accent); }
+  .writing-title { font-family: var(--font-serif); font-size: 0.95rem; font-weight: 500; color: var(--text); line-height: 1.45; transition: color 0.15s; }
+  .writing-date { font-size: 0.75rem; color: var(--soft); flex-shrink: 0; }
+
+  /* sidebar */
+  .sidebar { display: flex; flex-direction: column; gap: 2rem; }
+  .sidebar-block { border: 1px solid var(--border); border-radius: 0.5rem; padding: 1.25rem 1.25rem; background: var(--surface); }
+  .sidebar-label { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 0.85rem; }
+  .sidebar-item { padding: 0.65rem 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--text); line-height: 1.45; }
+  .sidebar-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .sidebar-item-sub { font-size: 0.72rem; color: var(--soft); margin-top: 0.2rem; }
+  .sidebar-note { font-size: 0.825rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+
+  /* ── CONTACT ── */
+  .contact-prose { font-family: var(--font-serif); font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 400; line-height: 1.4; color: var(--text); margin-bottom: 1.25rem; }
+  .contact-prose em { font-style: italic; color: var(--accent); }
+  .contact-sub { font-size: 0.925rem; color: var(--muted); font-weight: 300; line-height: 1.85; margin-bottom: 2rem; max-width: 440px; }
+  .contact-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .contact-link { font-size: 0.875rem; color: var(--text); text-decoration: none; border: 1px solid var(--border); padding: 0.6rem 1.15rem; border-radius: 0.3rem; background: var(--surface); transition: border-color 0.18s, color 0.18s, background 0.18s; }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+
+  /* ── FOOTER ── */
+  footer { border-top: 1px solid var(--border); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; color: var(--soft); font-size: 0.78rem; max-width: var(--max); margin: 0 auto; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-kicker { animation: fadeUp 0.5s ease both; }
+  .hero-title   { animation: fadeUp 0.5s 0.07s ease both; }
+  .hero-bio     { animation: fadeUp 0.5s 0.14s ease both; }
+  .hero-links   { animation: fadeUp 0.5s 0.21s ease both; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    nav { padding: 0.9rem 1.25rem; }
+    .nav-links { display: none; }
+    .hero, section, .featured { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .featured-inner { grid-template-columns: 1fr; }
+    .featured-cover { height: 160px; }
+    .featured-body { border-left: none; border-top: 1px solid var(--border); }
+    .teardown-grid { grid-template-columns: 1fr; }
+    .achieve-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    footer { flex-direction: column; gap: 0.4rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span class="comment">// </span><span class="nav-logo-name" data-zh="何诗涵 " data-en="Shihan_He ">何诗涵 </span><span class="cursor">_</span></div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#about" data-zh="关于" data-en="About">关于</a></li>
+      <li><a href="#teardowns" data-zh="拆解" data-en="Teardowns">拆解</a></li>
+      <li><a href="#lab" data-zh="笔记" data-en="Notes">笔记</a></li>
+      <li><a href="#achieve" data-zh="存档" data-en="Archive">存档</a></li>
+      <li><a href="#contact" data-zh="联系" data-en="Contact">联系</a></li>
+    </ul>
+    <button type="button" class="lang-btn" onclick="toggleLang()">中 / EN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1 class="hero-title"
+    data-zh="使用一款产品像一场探索——<br>每一个意外发现，都像开发者<br>悄悄埋下的<em>宝藏</em>。"
+    data-en="Using a product is like exploring —<br>every small discovery feels like something<br>the maker <em>left there for you.</em>">
+    Using a product is like exploring —<br>every small discovery feels like something<br>the maker <em>left there for you.</em>
+  </h1>
+  <p class="hero-bio"
+    data-zh="我一直需要亲手搭建，才算真正理解。这个网站记录我拆解产品、做「尝试」、写下思考的过程。"
+    data-en="I've always needed to build things to actually understand them. This site is where I take products apart, make things, and write down what I find.">
+    I've always needed to build things to actually understand them. This site is where I take products apart, make things, and write down what I find.
+  </p>
+  <div class="hero-links">
+    <a href="#teardowns" class="hero-link" data-zh="最新拆解 →" data-en="Latest teardown →">Latest teardown →</a>
+  </div>
+</div>
+
+<!-- FEATURED — latest piece -->
+<div class="featured">
+  <div class="featured-inner">
+    <div class="featured-cover t1">
+      <div class="featured-cover-bg"></div>
+      <div class="featured-cover-label" data-zh="最新拆解" data-en="Latest teardown">Latest teardown</div>
+    </div>
+    <div class="featured-body">
+      <div class="featured-eyebrow" data-zh="增长 · 2025" data-en="Growth · 2025">Growth · 2025</div>
+      <div class="featured-title"
+        data-zh="小红书的推荐引擎——为什么它让你停不下来"
+        data-en="小红书's Recommendation Engine — Why It Keeps You Scrolling">
+        小红书's Recommendation Engine — Why It Keeps You Scrolling
+      </div>
+      <div class="featured-desc"
+        data-zh="Xiaohongshu 如何在社交图谱信号与兴趣图谱信号之间取得平衡，在不损耗创作者信任的前提下最大化用户停留时长。"
+        data-en="How Xiaohongshu balances social graph and interest graph signals to maximize session length without burning creator trust.">
+        How Xiaohongshu balances social graph and interest graph signals to maximize session length without burning creator trust.
+      </div>
+      <a href="#teardowns" class="featured-link" data-zh="阅读拆解 →" data-en="Read teardown →">Read teardown →</a>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-header">
+    <div class="sec-label" data-zh="关于" data-en="About">About</div>
+    <h2 class="sec-title" style="margin-bottom:0.1rem;" data-zh="我" data-en="Me">Me</h2>
+    <h3 style="font-family:var(--font-serif);font-size:clamp(1rem,2.5vw,1.2rem);font-weight:400;font-style:italic;color:var(--accent);margin-top:0.25rem;margin-bottom:2.5rem;line-height:1.2;"
+      data-zh="到现在" data-en="Until now">Until now</h3>
+  </div>
+  <div class="about-prose">
+    <p data-zh="我叫何诗涵 Daisy，香港大学 IDT(CS) 在读。"
+       data-en="I'm Daisy (Shihan), studying IDT (CS) at the University of Hong Kong.">
+      I'm Daisy (Shihan), studying IDT (CS) at the University of Hong Kong.
+    </p>
+    <p data-zh="我很早就开始独自生活——从英国读高中，到大学，再到香港。那段时间给了我一件意外的礼物：大量和自己相处的时间。我开始观察周围的人，观察他们在做什么、怎么做、为什么。慢慢地，我养成了一个好像是天生的习惯——会从细枝末节里揣摩别人真正在想什么。朋友说这有点像读心术，但对我来说只是自然而然。每次无意中发现某款 app 的小功能，我第一个反应不是「好用」，而是「他们当时是怎么想到这个的」。那种猜到对方心思、脑回路对接的瞬间，让我着迷。"
+       data-en="I've lived on my own since I was a teenager — high school in the UK, then university, then Hong Kong. That gave me something I didn't expect: a lot of time with myself, and with the people around me. I started watching how people moved through the world — what they used, how they used it, why they kept coming back. Somewhere in there I developed a habit, maybe a natural one, of reading between the lines to figure out what people actually mean. Friends call it mind-reading. To me it just feels normal. When I stumble onto a small feature in an app I hadn't noticed before, my first thought isn't 'that's useful' — it's 'how did they think of that?' That moment of connection, of guessing right, is what got me hooked.">
+      I've lived on my own since I was a teenager — high school in the UK, then university, then Hong Kong. That gave me something I didn't expect: a lot of time with myself, and with the people around me. I started watching how people moved through the world — what they used, how they used it, why they kept coming back. Somewhere in there I developed a habit, maybe a natural one, of reading between the lines to figure out what people actually mean. Friends call it mind-reading. To me it just feels normal. When I stumble onto a small feature in an app I hadn't noticed before, my first thought isn't 'that's useful' — it's 'how did they think of that?' That moment of connection, of guessing right, is what got me hooked.
+    </p>
+    <p data-zh="另一件从小就确定的事：我需要亲手搭建，才算真正理解。先是乐高，然后是数学分析证明，还有各种乱七八糟的生活技能。「做出来」不是目的，是我思考问题的方式。光是分析，我会觉得有什么还没落地。"
+       data-en="The other thing I've known about myself for a long time: I need to build something to actually understand it. Lego first, then working through math proofs, then a long list of random skills I picked up along the way. Making isn't the point — it's how I think. Pure analysis leaves me with the feeling that something hasn't landed yet.">
+      The other thing I've known about myself for a long time: I need to build something to actually understand it. Lego first, then working through math proofs, then a long list of random skills I picked up along the way. Making isn't the point — it's how I think. Pure analysis leaves me with the feeling that something hasn't landed yet.
+    </p>
+    <p data-zh="我对那些能创造出有趣内容、并对人们生活真正产生影响的人，有由衷的向往。但我也知道，真正把产品做好，靠的不是那些听起来影响很大的决策——而是所有看起来微小、却构筑一切的东西：协调、取舍、沟通、理解每个人的处境。这并没有让我觉得它更难了，反而让我觉得它更真实。"
+       data-en="I have genuine admiration for people who make things that matter in other people's lives. But I also know that actually building a good product isn't about the big, audible decisions — it's about everything small that holds it together: coordination, tradeoffs, conversations that go nowhere and then suddenly do, understanding what everyone actually needs. That doesn't make it feel harder. It makes it feel more real.">
+      I have genuine admiration for people who make things that matter in other people's lives. But I also know that actually building a good product isn't about the big, audible decisions — it's about everything small that holds it together: coordination, tradeoffs, conversations that go nowhere and then suddenly do, understanding what everyone actually needs. That doesn't make it feel harder. It makes it feel more real.
+    </p>
+    <p data-zh="我喜欢艺术和展览，会因为一个有趣的交互细节高兴很久。我不害怕矛盾——沟通本身比避免摩擦更重要。我学东西快，而且习惯把学到的东西讲清楚。"
+       data-en="I like art and exhibitions. I can stay happy for a long time over a single interaction detail that surprised me. I'm not afraid of friction — I think the conversation matters more than keeping things smooth. I learn quickly, and I have a habit of needing to explain things clearly.">
+      I like art and exhibitions. I can stay happy for a long time over a single interaction detail that surprised me. I'm not afraid of friction — I think the conversation matters more than keeping things smooth. I learn quickly, and I have a habit of needing to explain things clearly, because if I can't explain it, I don't think I've actually learned it yet.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TEARDOWNS -->
+<section id="teardowns">
+  <div class="sec-header">
+    <div class="sec-label" data-zh="产品拆解" data-en="Product Teardowns">Product Teardowns</div>
+    <h2 class="sec-title" data-zh="我如何<em>思考</em>产品" data-en="How I <em>think</em> about products">How I <em>think</em> about products</h2>
+  </div>
+  <div class="teardown-grid">
+    <a href="#" class="td-card">
+      <div class="td-card-thumb t1">
+        <span class="td-thumb-type" data-zh="增长" data-en="Growth">Growth</span>
+      </div>
+      <div class="td-card-body">
+        <div class="td-card-title" data-zh="小红书的推荐引擎——为什么它让你停不下来" data-en="小红书's Recommendation Engine — Why It Keeps You Scrolling">小红书's Recommendation Engine — Why It Keeps You Scrolling</div>
+        <div class="td-card-desc" data-zh="Xiaohongshu 如何在社交图谱与兴趣图谱信号之间取得平衡，在不损耗创作者信任的前提下最大化用户停留时长。" data-en="How Xiaohongshu balances social graph and interest graph signals to maximize session length without burning creator trust.">How Xiaohongshu balances social graph and interest graph signals to maximize session length without burning creator trust.</div>
+        <div class="td-card-foot">2025</div>
+      </div>
+    </a>
+    <a href="#" class="td-card">
+      <div class="td-card-thumb t2">
+        <span class="td-thumb-type" data-zh="留存" data-en="Retention">Retention</span>
+      </div>
+      <div class="td-card-body">
+        <div class="td-card-title" data-zh="Duolingo 的连续打卡——习惯回路还是黑暗模式？" data-en="Duolingo's Streak — Habit Loop or Dark Pattern?">Duolingo's Streak — Habit Loop or Dark Pattern?</div>
+        <div class="td-card-desc" data-zh="拆解 Duolingo 的留存机制——哪些地方是真正精妙的习惯设计，哪些已经滑向焦虑驱动的参与，以及我会最先改什么。" data-en="Breaking down where Duolingo's retention mechanics are genuinely clever, where they tip into anxiety engineering, and what I'd change first.">Breaking down where Duolingo's retention mechanics are genuinely clever, where they tip into anxiety engineering, and what I'd change first.</div>
+        <div class="td-card-foot">2025</div>
+      </div>
+    </a>
+    <a href="#" class="td-card">
+      <div class="td-card-thumb t3">
+        <span class="td-thumb-type" data-zh="策略" data-en="Strategy">Strategy</span>
+      </div>
+      <div class="td-card-body">
+        <div class="td-card-title" data-zh="Notion vs. Linear——为什么有些团队会切换回去" data-en="Notion vs. Linear — Why Some Teams Switch Back">Notion vs. Linear — Why Some Teams Switch Back</div>
+        <div class="td-card-desc" data-zh="有主张的软件能创造强产品市场契合度——直到不再如此。追溯每款工具的产品哲学在哪里变成了自身的天花板。" data-en="Opinionated software creates strong product-market fit — until it doesn't. Tracing where each tool's philosophy becomes its ceiling.">Opinionated software creates strong product-market fit — until it doesn't. Tracing where each tool's philosophy becomes its ceiling.</div>
+        <div class="td-card-foot">2024</div>
+      </div>
+    </a>
+    <a href="#" class="td-card" style="border-left: 1px solid var(--border);">
+      <div class="td-card-thumb t4">
+        <span class="td-thumb-type" data-zh="用户体验" data-en="UX">UX</span>
+      </div>
+      <div class="td-card-body">
+        <div class="td-card-title" data-zh="即将发布——" data-en="Coming soon —">Coming soon —</div>
+        <div class="td-card-desc" data-zh="正在撰写下一篇拆解。" data-en="Next teardown in progress.">Next teardown in progress.</div>
+        <div class="td-card-foot" data-zh="2025" data-en="2025">2025</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LAB NOTES -->
+<section id="lab">
+  <div class="lab-header">
+    <div class="lab-label" data-zh="实验笔记" data-en="Lab Notes">实验笔记</div>
+    <h2 class="lab-title-text" data-zh="一些我在<em>折腾</em>的东西。" data-en="Things I've been <em>experimenting</em> with.">一些我在<em>折腾</em>的东西。</h2>
+    <p class="lab-intro" data-zh="不是技能列表。是我真实做过的事情的记录——用工具解决问题，然后思考它意味着什么。" data-en="Not a skills list. A record of things I've actually done — using tools to solve real problems, then thinking about what it means.">不是技能列表。是我真实做过的事情的记录——用工具解决问题，然后思考它意味着什么。</p>
+  </div>
+  <div class="lab-list">
+    <article class="lab-item">
+      <span class="lab-item-num">01</span>
+      <div class="lab-item-body">
+        <h3 class="lab-item-title" data-zh="用 Manim 做示意动画" data-en="Motion explainers with Manim">用 Manim 做示意动画</h3>
+        <p class="lab-item-desc" data-zh="用 <strong>Manim</strong> 把抽象流程画成可复用的短视频脚本，让 Claude 生成场景代码，反复调整时序与视觉层级。目标不是视频本身，而是验证 AI 能否压缩「我理解了」到「我能讲清楚」之间的距离。" data-en="Used <strong>Manim</strong> to animate a concept I couldn't explain in words. Prompted Claude to generate scene code, iterated on timing and visual hierarchy. The goal wasn't the video — it was figuring out whether AI could close the gap between understanding and explanation.">用 <strong>Manim</strong> 把抽象流程画成可复用的短视频脚本，让 Claude 生成场景代码，反复调整时序与视觉层级。目标不是视频本身，而是验证 AI 能否压缩「我理解了」到「我能讲清楚」之间的距离。</p>
+        <div class="lab-item-tags"><span class="lab-tag">Manim</span><span class="lab-tag">Claude</span><span class="lab-tag">Python</span></div>
+      </div>
+    </article>
+    <article class="lab-item">
+      <span class="lab-item-num">02</span>
+      <div class="lab-item-body">
+        <h3 class="lab-item-title" data-zh="用 Gemini 复现论文" data-en="Reproducing a research paper with Gemini">用 Gemini 复现论文</h3>
+        <p class="lab-item-desc" data-zh="把一篇 ML 论文逐节喂给 <strong>Gemini</strong>，让它在 Colab 里复现核心实验。有意思的发现：Gemini 捕捉到了两处论文没有显式声明的隐含假设——这让我意识到，摘要最容易误导人。现在这是我认真阅读每篇论文的固定流程。" data-en="Fed a recent ML paper to <strong>Gemini</strong> section by section and asked it to reproduce the core experiment in Colab. It caught two silent assumptions the paper never stated — useful for understanding where abstracts mislead. Now I do this for every paper I read seriously.">把一篇 ML 论文逐节喂给 <strong>Gemini</strong>，让它在 Colab 里复现核心实验。有意思的发现：Gemini 捕捉到了两处论文没有显式声明的隐含假设——这让我意识到，摘要最容易误导人。现在这是我认真阅读每篇论文的固定流程。</p>
+        <div class="lab-item-tags"><span class="lab-tag">Gemini 1.5 Pro</span><span class="lab-tag">Google Colab</span><span class="lab-tag">Python</span></div>
+      </div>
+    </article>
+    <article class="lab-item">
+      <span class="lab-item-num">03</span>
+      <div class="lab-item-body">
+        <h3 class="lab-item-title" data-zh="Cursor + Claude 流水线" data-en="Cursor + Claude workflows">Cursor + Claude 流水线</h3>
+        <p class="lab-item-desc" data-zh="用 <strong>Cursor + Claude</strong> 搭建用户访谈合成脚本：转录 6 段访谈，提取 JTBD、痛点与原话，按主题归组。最有意思的部分是 AI 输出与我自己归纳的分歧——模型发现了几个我下意识忽略掉的模式。" data-en="Used <strong>Cursor + Claude</strong> to build a script that synthesized 6 user interviews — extracting jobs-to-be-done, pain points, and verbatim quotes grouped by theme. The disagreements between AI output and my own synthesis were the most revealing part.">用 <strong>Cursor + Claude</strong> 搭建用户访谈合成脚本：转录 6 段访谈，提取 JTBD、痛点与原话，按主题归组。最有意思的部分是 AI 输出与我自己归纳的分歧——模型发现了几个我下意识忽略掉的模式。</p>
+        <div class="lab-item-tags"><span class="lab-tag">Cursor</span><span class="lab-tag">Claude API</span><span class="lab-tag">Whisper</span></div>
+      </div>
+    </article>
+    <article class="lab-item">
+      <span class="lab-item-num">04</span>
+      <div class="lab-item-body">
+        <h3 class="lab-item-title" data-zh="把 PPT 讲义转成可交互 HTML 笔记" data-en="Converting lecture slides into interactive HTML notes">把 PPT 讲义转成可交互 HTML 笔记</h3>
+        <p class="lab-item-desc" data-zh="课堂 PPT 是为「当场听」设计的，不是为「日后复习」设计的。做法是：把 PPT 导出为图片，用 <strong>Claude</strong> 逐页提取文字结构，再生成一份双栏 HTML 笔记——左侧是原始要点，右侧是补充的解释、延伸问题与关联概念。整个流程约需 15 分钟。有意思的地方不在于速度，而在于「被迫重新组织信息」这个动作本身让理解更深了。" data-en="Lecture slides are designed to be heard, not reviewed. The workflow: export slides as images, use <strong>Claude</strong> to extract the structure page by page, then generate a two-column HTML note — original points on the left, added explanations and follow-up questions on the right. Takes about 15 minutes per deck. What surprised me wasn't the speed — it was that being forced to reorganize the information made me understand it better.">课堂 PPT 是为「当场听」设计的，不是为「日后复习」设计的。做法是：把 PPT 导出为图片，用 <strong>Claude</strong> 逐页提取文字结构，再生成一份双栏 HTML 笔记——左侧是原始要点，右侧是补充的解释、延伸问题与关联概念。整个流程约需 15 分钟。有意思的地方不在于速度，而在于「被迫重新组织信息」这个动作本身让理解更深了。</p>
+        <div class="lab-item-tags"><span class="lab-tag">Claude</span><span class="lab-tag">HTML / CSS</span><span class="lab-tag">Python</span></div>
+      </div>
+    </article>
+    <article class="lab-item">
+      <span class="lab-item-num">05</span>
+      <div class="lab-item-body">
+        <h3 class="lab-item-title" data-zh="用自然语言做漏斗分析" data-en="Funnel analysis with natural language queries">用自然语言做漏斗分析</h3>
+        <p class="lab-item-desc" data-zh="把一份模拟产品数据集加载进 notebook，用 <strong>GPT-4o</strong> 的代码解释器通过纯自然语言提问来运行漏斗分析，不手写 SQL。有趣的发现：模型偶尔会错误地理解问题本身。而发现这一点，需要你已经知道自己在找什么。" data-en="Loaded a mock product dataset and used <strong>GPT-4o</strong> with code interpreter to run funnel analysis via plain-English questions — no SQL written by hand. The interesting finding: the model would occasionally misframe the question. Catching that requires you to already know what you're looking for.">把一份模拟产品数据集加载进 notebook，用 <strong>GPT-4o</strong> 的代码解释器通过纯自然语言提问来运行漏斗分析，不手写 SQL。有趣的发现：模型偶尔会错误地理解问题本身。而发现这一点，需要你已经知道自己在找什么。</p>
+        <div class="lab-item-tags"><span class="lab-tag">GPT-4o</span><span class="lab-tag">Pandas</span><span class="lab-tag">Plotly</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ACHIEVE / 思考存档 -->
+<section id="achieve">
+  <div class="sec-header">
+    <div class="sec-label" data-zh="思考存档" data-en="Archive">思考存档</div>
+    <h2 class="sec-title" data-zh="留档随笔与<em>思考</em>" data-en="Notes &amp; <em>reflections</em>">留档随笔与<em>思考</em></h2>
+  </div>
+  <div class="achieve-layout">
+    <div>
+      <div class="writing-list">
+        <a href="#" class="writing-item">
+          <div class="writing-title" data-zh="读了四个月的 PM 招聘描述，我学到了什么" data-en="What four months of reading PM job descriptions taught me">What four months of reading PM job descriptions taught me</div>
+          <div class="writing-date">Jan 2025</div>
+        </a>
+        <a href="#" class="writing-item">
+          <div class="writing-title" data-zh="我用得最多的产品，是我最不了解的那款" data-en="The product I use most is the one I understand least">The product I use most is the one I understand least</div>
+          <div class="writing-date">Dec 2024</div>
+        </a>
+        <a href="#" class="writing-item">
+          <div class="writing-title" data-zh="学会在「要做什么」之前先问「为什么是现在」" data-en="On learning to ask &quot;why now?&quot; before &quot;what next?&quot;">On learning to ask "why now?" before "what next?"</div>
+          <div class="writing-date">Nov 2024</div>
+        </a>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="sidebar-block">
+        <div class="sidebar-label" data-zh="最近在读" data-en="Currently reading">Currently reading</div>
+        <div class="sidebar-item">
+          <div data-zh="《Continuous Discovery Habits》" data-en="Continuous Discovery Habits">Continuous Discovery Habits</div>
+          <div class="sidebar-item-sub">Teresa Torres</div>
+        </div>
+        <div class="sidebar-item">
+          <div data-zh="《The Mom Test》" data-en="The Mom Test">The Mom Test</div>
+          <div class="sidebar-item-sub">Rob Fitzpatrick</div>
+        </div>
+        <div class="sidebar-item">
+          <div data-zh="《Inspired》" data-en="Inspired">Inspired</div>
+          <div class="sidebar-item-sub">Marty Cagan</div>
+        </div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-label" data-zh="最近在想" data-en="On my mind">On my mind</div>
+        <p class="sidebar-note" data-zh="为什么大多数 onboarding 流程都在优化完成率，而不是优化用户真正理解产品的时刻？" data-en="Why do most onboarding flows optimize for completion rate instead of the moment a user actually gets it?">Why do most onboarding flows optimize for completion rate instead of the moment a user actually gets it?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="contact-prose"
+    data-zh="聊一聊吧！"
+    data-en="Let's <em>talk.</em>">
+    Let's <em>talk.</em>
+  </p>
+  <p class="contact-sub"
+    data-zh="正在寻找 PM 相关的实习或全职机会。我是一个「百分之百回复者」，所以，期待收到你的消息！"
+    data-en="Actively looking for PM internships or full-time roles. I reply to every message — so don't hesitate to reach out.">
+    Actively looking for PM internships or full-time roles. I reply to every message — so don't hesitate to reach out.
+  </p>
+  <div class="contact-row">
+    <a href="/cdn-cgi/l/email-protection#057c6a7077456068646c692b666a68" class="contact-link" data-zh="发邮件" data-en="Email">Email</a>
+    <a href="https://github.com/Daisssy40" class="contact-link" target="_blank">GitHub</a>
+  </div>
+</section>
+
+<footer>
+  <span style="font-family:'Courier New',monospace;font-size:0.78rem;"><span style="color:var(--soft);">// </span>何诗涵 Shihan He</span>
+  <span data-zh="© 2026" data-en="© 2026">© 2026</span>
+</footer>
+
+<script>
+(function() {
+  var lang = 'zh';
+
+  function applyLang(l) {
+    lang = l;
+    document.querySelectorAll('[data-zh]').forEach(function(el) {
+      var val = el.getAttribute(l === 'zh' ? 'data-zh' : 'data-en');
+      if (val != null) el.innerHTML = val;
+    });
+    document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en';
+    var btn = document.querySelector('.lang-btn');
+    if (btn) btn.textContent = l === 'zh' ? '中 / EN' : 'EN / 中';
+  }
+
+  window.toggleLang = function() {
+    applyLang(lang === 'zh' ? 'en' : 'zh');
+  };
+
+  applyLang('zh');
+})();
+</script>
+</body>
+</html>
