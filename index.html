@@ -125,10 +125,13 @@
   }
   .featured-img {
     aspect-ratio: 4/3; background: #2c2825;
-    background-image: url('images/featured-cover.jpg');
+    background-image:
+      linear-gradient(to bottom, rgba(8,6,10,0.03) 0%, rgba(8,6,10,0.2) 100%),
+      url('images/xiaohongshu-hero-bg.png');
     background-size: cover; background-position: center;
     border-radius: 0.35rem; overflow: hidden;
     position: relative;
+    filter: brightness(1.06);
   }
   .featured-img-overlay {
     position: absolute; inset: 0;
@@ -167,16 +170,28 @@
   .td-card-thumb {
     height: 120px; display: flex; align-items: flex-end; padding: 1rem 1.25rem;
     position: relative; overflow: hidden;
+    background-image:
+      linear-gradient(to bottom, rgba(8,6,10,0.12) 0%, rgba(8,6,10,0.45) 100%),
+      url('images/xiaohongshu-hero-bg.png');
+    background-size: cover;
+    background-position: center;
   }
-  .td-card-thumb.t1 { background: #f0ece3; }
-  .td-card-thumb.t2 { background: #e8eff0; }
-  .td-card-thumb.t3 { background: #ede8f0; }
-  .td-card-thumb.t4 { background: #e8f0e8; }
+  .td-card-thumb.t1 { filter: saturate(1.05); }
+  .td-card-thumb.t2 {
+    background-image:
+      linear-gradient(to bottom, rgba(72,190,24,0.26) 0%, rgba(41,163,0,0.64) 100%),
+      url('images/xiaohongshu-hero-bg.png');
+    background-size: cover;
+    background-position: center;
+    filter: saturate(1.05) brightness(0.98);
+  }
+  .td-card-thumb.t3 { filter: hue-rotate(-8deg) saturate(0.9); }
+  .td-card-thumb.t4 { filter: brightness(1.04) saturate(0.88); }
   .td-thumb-type {
     font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
-    font-weight: 500; color: var(--muted);
-    background: rgba(255,255,255,0.75); padding: 0.2rem 0.55rem;
-    border-radius: 2rem; border: 1px solid var(--border);
+    font-weight: 600; color: #3f342d;
+    background: rgba(255,255,255,0.92); padding: 0.2rem 0.55rem;
+    border-radius: 2rem; border: 1px solid rgba(255,255,255,0.95);
   }
   .td-card-body { padding: 1.25rem 1.25rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
   .td-card-title { font-family: var(--font-serif); font-size: 0.975rem; font-weight: 500; color: var(--text); line-height: 1.4; margin-bottom: 0.5rem; transition: color 0.15s; }
@@ -322,14 +337,14 @@
       <div class="featured-img-overlay"></div>
     </div>
     <div class="featured-text">
-      <div class="featured-eyebrow" data-zh="最新拆解 · 增长 · 2025" data-en="Latest · Growth · 2025">Latest · Growth · 2025</div>
+      <div class="featured-eyebrow" data-zh="最新拆解 · 增长 · 2026" data-en="Latest · Growth · 2025">Latest · Growth · 2026</div>
       <div class="featured-title"
         data-zh="小红书的推荐引擎——为什么它让你停不下来"
         data-en="小红书's Recommendation Engine — Why It Keeps You Scrolling">
         小红书's Recommendation Engine — Why It Keeps You Scrolling
       </div>
       <div class="featured-desc"
-        data-zh="Xiaohongshu 如何在社交图谱信号与兴趣图谱信号之间取得平衡，在不损耗创作者信任的前提下最大化用户停留时长。"
+        data-zh="小红书如何在社交图谱信号与兴趣图谱信号之间取得平衡，在不损耗创作者信任的前提下最大化用户停留时长。"
         data-en="How Xiaohongshu balances social graph and interest graph signals to maximize session length without burning creator trust.">
         How Xiaohongshu balances social graph and interest graph signals to maximize session length without burning creator trust.
       </div>
@@ -389,7 +404,7 @@
       <div class="td-card-body">
         <div class="td-card-title" data-zh="小红书的推荐引擎——为什么它让你停不下来" data-en="小红书's Recommendation Engine — Why It Keeps You Scrolling">小红书's Recommendation Engine — Why It Keeps You Scrolling</div>
         <div class="td-card-desc" data-zh="小红书如何在社交图谱与兴趣图谱信号之间取得平衡，在不损耗创作者信任的前提下最大化用户停留时长。" data-en="How Xiaohongshu balances social graph and interest graph signals to maximize session length without burning creator trust.">How Xiaohongshu balances social graph and interest graph signals to maximize session length without burning creator trust.</div>
-        <div class="td-card-foot">2025</div>
+        <div class="td-card-foot">2026</div>
       </div>
     </a>
     <a href="#" class="td-card">
@@ -439,13 +454,21 @@
     <article class="lab-item">
       <span class="lab-item-num">01</span>
       <div class="lab-item-body">
+        <h3 class="lab-item-title" data-zh="把 PPT 讲义转成可交互 HTML 笔记" data-en="Converting lecture slides into interactive HTML notes">把 PPT 讲义转成可交互 HTML 笔记</h3>
+        <p class="lab-item-desc" data-zh="课堂 PPT 是为「当场听」设计的，不是为「日后复习」设计的。做法是：把 PPT 导出为图片，用 <strong>Claude</strong> 逐页提取文字结构，再生成一份双栏 HTML 笔记——左侧是原始要点，右侧是补充的解释、延伸问题与关联概念。整个流程约需 15 分钟。有意思的地方不在于速度，而在于「被迫重新组织信息」这个动作本身让理解更深了。" data-en="Lecture slides are designed to be heard, not reviewed. The workflow: export slides as images, use <strong>Claude</strong> to extract the structure page by page, then generate a two-column HTML note — original points on the left, added explanations and follow-up questions on the right. Takes about 15 minutes per deck. What surprised me wasn't the speed — it was that being forced to reorganize the information made me understand it better.">课堂 PPT 是为「当场听」设计的，不是为「日后复习」设计的。做法是：把 PPT 导出为图片，用 <strong>Claude</strong> 逐页提取文字结构，再生成一份双栏 HTML 笔记——左侧是原始要点，右侧是补充的解释、延伸问题与关联概念。整个流程约需 15 分钟。有意思的地方不在于速度，而在于「被迫重新组织信息」这个动作本身让理解更深了。</p>
+        <div class="lab-item-tags"><span class="lab-tag">Claude</span><span class="lab-tag">HTML / CSS</span><span class="lab-tag">Python</span></div>
+      </div>
+    </article>
+    <article class="lab-item">
+      <span class="lab-item-num">02</span>
+      <div class="lab-item-body">
         <h3 class="lab-item-title" data-zh="用 Manim 做示意动画" data-en="Motion explainers with Manim">用 Manim 做示意动画</h3>
         <p class="lab-item-desc" data-zh="用 <strong>Manim</strong> 把抽象流程画成可复用的短视频脚本，让 Claude 生成场景代码，反复调整时序与视觉层级。目标不是视频本身，而是验证 AI 能否压缩「我理解了」到「我能讲清楚」之间的距离。" data-en="Used <strong>Manim</strong> to animate a concept I couldn't explain in words. Prompted Claude to generate scene code, iterated on timing and visual hierarchy. The goal wasn't the video — it was figuring out whether AI could close the gap between understanding and explanation.">用 <strong>Manim</strong> 把抽象流程画成可复用的短视频脚本，让 Claude 生成场景代码，反复调整时序与视觉层级。目标不是视频本身，而是验证 AI 能否压缩「我理解了」到「我能讲清楚」之间的距离。</p>
         <div class="lab-item-tags"><span class="lab-tag">Manim</span><span class="lab-tag">Claude</span><span class="lab-tag">Python</span></div>
       </div>
     </article>
     <article class="lab-item">
-      <span class="lab-item-num">02</span>
+      <span class="lab-item-num">03</span>
       <div class="lab-item-body">
         <h3 class="lab-item-title" data-zh="用 Gemini 复现论文" data-en="Reproducing a research paper with Gemini">用 Gemini 复现论文</h3>
         <p class="lab-item-desc" data-zh="把一篇 ML 论文逐节喂给 <strong>Gemini</strong>，让它在 Colab 里复现核心实验。有意思的发现：Gemini 捕捉到了两处论文没有显式声明的隐含假设——这让我意识到，摘要最容易误导人。现在这是我认真阅读每篇论文的固定流程。" data-en="Fed a recent ML paper to <strong>Gemini</strong> section by section and asked it to reproduce the core experiment in Colab. It caught two silent assumptions the paper never stated — useful for understanding where abstracts mislead. Now I do this for every paper I read seriously.">把一篇 ML 论文逐节喂给 <strong>Gemini</strong>，让它在 Colab 里复现核心实验。有意思的发现：Gemini 捕捉到了两处论文没有显式声明的隐含假设——这让我意识到，摘要最容易误导人。现在这是我认真阅读每篇论文的固定流程。</p>
@@ -453,19 +476,11 @@
       </div>
     </article>
     <article class="lab-item">
-      <span class="lab-item-num">03</span>
+      <span class="lab-item-num">04</span>
       <div class="lab-item-body">
         <h3 class="lab-item-title" data-zh="Cursor + Claude 流水线" data-en="Cursor + Claude workflows">Cursor + Claude 流水线</h3>
         <p class="lab-item-desc" data-zh="用 <strong>Cursor + Claude</strong> 搭建用户访谈合成脚本：转录 6 段访谈，提取 JTBD、痛点与原话，按主题归组。最有意思的部分是 AI 输出与我自己归纳的分歧——模型发现了几个我下意识忽略掉的模式。" data-en="Used <strong>Cursor + Claude</strong> to build a script that synthesized 6 user interviews — extracting jobs-to-be-done, pain points, and verbatim quotes grouped by theme. The disagreements between AI output and my own synthesis were the most revealing part.">用 <strong>Cursor + Claude</strong> 搭建用户访谈合成脚本：转录 6 段访谈，提取 JTBD、痛点与原话，按主题归组。最有意思的部分是 AI 输出与我自己归纳的分歧——模型发现了几个我下意识忽略掉的模式。</p>
         <div class="lab-item-tags"><span class="lab-tag">Cursor</span><span class="lab-tag">Claude API</span><span class="lab-tag">Whisper</span></div>
-      </div>
-    </article>
-    <article class="lab-item">
-      <span class="lab-item-num">04</span>
-      <div class="lab-item-body">
-        <h3 class="lab-item-title" data-zh="把 PPT 讲义转成可交互 HTML 笔记" data-en="Converting lecture slides into interactive HTML notes">把 PPT 讲义转成可交互 HTML 笔记</h3>
-        <p class="lab-item-desc" data-zh="课堂 PPT 是为「当场听」设计的，不是为「日后复习」设计的。做法是：把 PPT 导出为图片，用 <strong>Claude</strong> 逐页提取文字结构，再生成一份双栏 HTML 笔记——左侧是原始要点，右侧是补充的解释、延伸问题与关联概念。整个流程约需 15 分钟。有意思的地方不在于速度，而在于「被迫重新组织信息」这个动作本身让理解更深了。" data-en="Lecture slides are designed to be heard, not reviewed. The workflow: export slides as images, use <strong>Claude</strong> to extract the structure page by page, then generate a two-column HTML note — original points on the left, added explanations and follow-up questions on the right. Takes about 15 minutes per deck. What surprised me wasn't the speed — it was that being forced to reorganize the information made me understand it better.">课堂 PPT 是为「当场听」设计的，不是为「日后复习」设计的。做法是：把 PPT 导出为图片，用 <strong>Claude</strong> 逐页提取文字结构，再生成一份双栏 HTML 笔记——左侧是原始要点，右侧是补充的解释、延伸问题与关联概念。整个流程约需 15 分钟。有意思的地方不在于速度，而在于「被迫重新组织信息」这个动作本身让理解更深了。</p>
-        <div class="lab-item-tags"><span class="lab-tag">Claude</span><span class="lab-tag">HTML / CSS</span><span class="lab-tag">Python</span></div>
       </div>
     </article>
     <article class="lab-item">
