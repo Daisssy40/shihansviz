@@ -125,20 +125,6 @@
     <p>那就随着时间的洪流, 向前走, 哪怕被裹挟,哪怕受伤, 也要往前走. 伤疤会愈合, 留下的印记是存在的证明,也是勋章.</p>
   </article>
 
-  <nav class="post-nav">
-    <div class="post-nav-label" data-zh="继续阅读" data-en="Continue Reading">继续阅读</div>
-    <div class="post-nav-links">
-      <a href="xiaohongshu.html" class="nav-card">
-        <div class="nav-card-dir" data-zh="← 上一篇" data-en="← Previous">← 上一篇</div>
-        <div class="nav-card-title" data-zh="小红书的推荐引擎拆解" data-en="Teardown: 小红书's Rec Engine">小红书的推荐引擎拆解</div>
-      </a>
-      <a href="../index.html" class="nav-card" style="text-align: right; align-items: flex-end;">
-        <div class="nav-card-dir" data-zh="返回索引 →" data-en="Back to Index →">返回索引 →</div>
-        <div class="nav-card-title" data-zh="Product Logic Lab" data-en="Product Logic Lab">Product Logic Lab</div>
-      </a>
-    </div>
-  </nav>
-
 </main>
 
 <div class="divider" style="max-width:var(--max-article);"></div>
